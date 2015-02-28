@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'oauth'
 require 'yaml'
+require 'uri'
 
 exit if ARGV.size != 1
 
@@ -30,11 +31,20 @@ end
 access_token = prepare_access_token(config)
 
 # use the access token as an agent to get the home timeline
-response = access_token.request(
-  :get,
-  'https://api.twitter.com/1.1/statuses/home_timeline.json'
-)
+
+get '/' do
+  content_type :html
+  File.read('client/index.html')
+end
 
 get '/twitter' do
+  # content_type :json
+  url = URI.escape(params['url'])
+  complete_url = "https://api.twitter.com/1.1/#{url}"
+  puts "Querying url: #{complete_url}"
+  response = access_token.request(
+    :get,
+    complete_url
+  )
   response.body
 end
