@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'oauth'
-require 'byebug'
 require 'yaml'
 
 exit if ARGV.size != 1
@@ -20,8 +19,8 @@ def prepare_access_token(config)
 
   # now create the access token object from passed values
   token_hash = {
-    oauth_token: config['oauth_token'],
-    oauth_token_secret: config['oauth_token_secret']
+    oauth_token: config['access_token'],
+    oauth_token_secret: config['access_token_secret']
   }
 
   OAuth::AccessToken.from_hash(consumer, token_hash)
