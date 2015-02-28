@@ -1,2 +1,2 @@
-# test_twitter_oauth
+# Twitter OAuth Test
 A small sinatra based twitter auth test.
