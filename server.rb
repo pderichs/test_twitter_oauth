@@ -1,3 +1,5 @@
+# Inspired by https://dev.twitter.com/oauth/overview/single-user
+
 require 'sinatra'
 require 'oauth'
 require 'yaml'
@@ -30,15 +32,15 @@ end
 # Exchange our oauth_token and oauth_token secret for the AccessToken instance.
 access_token = prepare_access_token(config)
 
-# use the access token as an agent to get the home timeline
-
 get '/' do
-  content_type :html
   File.read('client/index.html')
 end
 
+get '/js/test.js' do
+  File.read('client/js/test.js')
+end
+
 get '/twitter' do
-  # content_type :json
   url = URI.escape(params['url'])
   complete_url = "https://api.twitter.com/1.1/#{url}"
   puts "Querying url: #{complete_url}"
